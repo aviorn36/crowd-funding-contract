@@ -35,25 +35,35 @@ contract FundMe {
     s_priceFeed = AggregatorV3Interface(priceFeedAddress);
   }
 
-  //   receive() external payable {
-  //     fund();
-  //   }
+  receive() external payable {
+    fund();
+  }
 
-  //   fallback() external payable {
-  //     fund();
-  //   }
+  fallback() external payable {
+    fund();
+  }
 
   /**
    * @notice This function funds this contract
    * @dev This function internally stores public address and amount of token donated
    */
   function fund() public payable {
-    // require(
-    //   msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
-    //   "You need to spend more ETH!"
-    // );
-    if (msg.value.getConversionRate(s_priceFeed) < MINIMUM_USD)
-      revert FundMe__Insufficient_Funds();
+    console.log("testing...........");
+    console.log("value");
+
+    console.log(msg.value);
+
+    console.log(msg.value.getConversionRate(s_priceFeed));
+    console.log(MINIMUM_USD);
+
+    require(
+      msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
+      "You need to spend more ETH!"
+    );
+    // if (msg.value.getConversionRate(s_priceFeed) < MINIMUM_USD) {
+    //   revert FundMe__Insufficient_Funds();
+    // }
+
     // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
     s_addressToAmountFunded[msg.sender] += msg.value;
     s_funders.push(msg.sender);
