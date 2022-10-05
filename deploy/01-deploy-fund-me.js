@@ -16,13 +16,13 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   if (developmentChains.includes(network.name)) {
     const mockMockV3Aggregator = await deployments.get("MockV3Aggregator");
-    ethUsdPriceFeedAddress = mockMockV3Aggregator.address;
+    priceFeedAddress = mockMockV3Aggregator.address;
   } else {
     //ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeedAddress"];
-    ethUsdPriceFeedAddress = network.config.ethUsdPriceFeedAddress;
+    priceFeedAddress = networkConfig[chainId].ethUsdPriceFeedAddress;
   }
-  log("FundMe: deployment inprogress..." + ethUsdPriceFeedAddress);
-  const args = [ethUsdPriceFeedAddress];
+  log("FundMe: deployment inprogress..." + priceFeedAddress);
+  const args = [priceFeedAddress];
   const fundMe = await deploy("FundMe", {
     from: deployer,
     args: args,
