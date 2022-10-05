@@ -1,6 +1,9 @@
-require("@nomicfoundation/hardhat-toolbox");
-require("hardhat-deploy");
+require("@nomiclabs/hardhat-waffle");
+require("hardhat-gas-reporter");
+require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
+require("solidity-coverage");
+require("hardhat-deploy");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
@@ -20,7 +23,7 @@ module.exports = {
       accounts: [GOERLI_PRIVATE_KEY],
       chainId: 5,
       blockConfirmations: 6,
-      ethUsdPriceFeedAddress: "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e",
+      // ethUsdPriceFeedAddress: "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e",
     },
     localhost: {
       url: "http://127.0.0.1:8545/",
@@ -36,7 +39,7 @@ module.exports = {
     apiKey: ETHERSCAN_API_KEY,
   },
   gasReporter: {
-    enabled: true,
+    enabled: false,
     outputFile: "gas-report.txt",
     noColors: true,
     currency: "USD",
